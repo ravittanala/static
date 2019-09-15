@@ -1,0 +1,2 @@
+# static
+Jenkins (BlueOcean)-Pipeline
