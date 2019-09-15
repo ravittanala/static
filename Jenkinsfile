@@ -11,7 +11,7 @@ pipeline {
       agent any
       steps {
         withAWS(region:'us-east-2',credentials:'aws-static')
-          s3Upload(bucket: 'jenkinsblueocean', includePathPattern:'**/*');
+          s3Upload(file:'index.html',bucket: 'jenkinsblueocean', includePathPattern:'**/*');
       }
     }
   }
