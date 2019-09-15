@@ -6,6 +6,7 @@ pipeline {
       steps {
         sh 'tidy -q -e *.html'
       }
+    }
     stage('Upload to AWS') {
       agent any
       steps {
@@ -14,5 +15,4 @@ pipeline {
       }
     }
   }
- }
 }
