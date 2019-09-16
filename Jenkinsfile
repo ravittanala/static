@@ -10,7 +10,7 @@ pipeline {
     stage('Upload to AWS') {
       agent any
       steps {
-        withAWS(credentials:'aws-static')
+        withAWS(region:'us-east-2',credentials:'aws-static')
           s3Upload(file:'index.html',bucket: 'jenkinsblueocean', includePathPattern:'**/*');
       }
     }
