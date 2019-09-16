@@ -7,11 +7,10 @@ pipeline {
         sh 'tidy -q -e *.html'
       }
     }
-    stage('Upload to AWS') {
+    stage('Build') {
       agent any
       steps {
-        withAWS(region:'us-east-2',credentials:'aws-static')
-          s3Upload(file:'index.html',bucket: 'jenkinsblueocean', includePathPattern:'**/*');
+        sh 'echo "Hello World"'
       }
     }
   }
