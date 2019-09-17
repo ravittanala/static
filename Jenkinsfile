@@ -1,23 +1,26 @@
 pipeline {
   agent any
   stages {
+    stage('Build') {
+      agent any
+      steps {
+        sh 'echo "Hello World - This is Rajesh"'
+      }
+    }
     stage('Lint Html') {
       agent any
       steps {
         sh 'tidy -q -e *.html'
       }
     }
-    stage('Build') {
-      agent any
-      steps {
-        sh 'echo "Hello World"'
-      }
-    }
-    stage('Upload to AWS') {
-      agent any
-      steps {
-        s3Upload(file: 'index.html', bucket: 'jenkinsblueocean', includePathPattern: '**/*', pathStyleAccessEnabled: true, payloadSigningEnabled: true, acl: 'BucketOwnerFullControl')
-      }
+    stage ('Upload to AWS') {
+            steps {
+                
+                withAWS(credentials:'aws-static') {
+                    // do something
+                    s3Upload(bucket:"jenkinsblueocean", file:'index.html')
+                }
+            }
     }
   }
 }
