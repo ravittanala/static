@@ -5,6 +5,8 @@ pipeline {
       agent any
       steps {
         sh 'echo "Hello World - This is Rajesh"'
+        sh '''echo "Multi-line shell steps work too!"
+ls -latr'''
       }
     }
     stage('Lint Html') {
@@ -13,14 +15,13 @@ pipeline {
         sh 'tidy -q -e *.html'
       }
     }
-    stage ('Upload to AWS') {
-            steps {
-                
-                withAWS(credentials:'aws-static') {
-                    // do something
-                    s3Upload(bucket:"jenkinsblueocean", file:'index.html')
-                }
-            }
+    stage('Upload to AWS') {
+      steps {
+        withAWS(credentials: 'aws-static') {
+          s3Upload(bucket: 'jenkinsblueocean', file: 'index.html')
+        }
+
+      }
     }
   }
 }
